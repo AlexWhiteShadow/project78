@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
+
+Route::post('categories', [CategoryController::class, 'createCategory']);
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -14,4 +17,6 @@ Route::post('signup', [AuthController::class, 'signUp']);
 Route::group(['middleware' => 'auth.jwt'], function () {
 
     Route::get('test', [AuthController::class, 'test']);
+
 });
+
