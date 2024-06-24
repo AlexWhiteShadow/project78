@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ResponseService
 {
@@ -46,5 +47,15 @@ class ResponseService
         $result = array_merge($this->responseData, $keyValueData);
 
         return response()->json($result, $code ?? 200);
+    }
+
+    public function errorResponseWithException(string $message, int $code = 400)
+    {
+        throw new HttpResponseException(
+            response()->json([
+                'Success' => false,
+                'message' => $message,
+            ], $code)
+        );
     }
 }

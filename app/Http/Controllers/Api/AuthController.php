@@ -24,7 +24,7 @@ class AuthController extends Controller
     public function signUp(SignUpRequest $request)
     {
         return $this->AuthService->signUp(
-            $request->input('email'), $request->input('password'), $request->input('password confirmation')
+            $request->input('email'), $request->input('password'), $request->input('password_confirmation')
         );
     }
 
