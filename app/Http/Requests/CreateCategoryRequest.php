@@ -32,8 +32,7 @@ private ResponseService $responseService;
     {
         return [
             'name' => 'required|string',
-            'description' => 'required|string',
-            'sub_category_id' => 'sometimes|int'
+            'description' => 'required|string'
         ];
     }
 

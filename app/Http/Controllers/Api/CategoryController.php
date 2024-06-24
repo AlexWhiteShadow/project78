@@ -21,8 +21,7 @@ class CategoryController extends Controller
     {
         return $this->categoryService->createCategory(
             $request->input('name'),
-            $request->input('description'),
-            $request->input('sub_category_id')
+            $request->input('description')
         );
     }
 }

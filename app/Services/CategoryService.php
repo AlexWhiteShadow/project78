@@ -20,16 +20,12 @@ class CategoryService
         $this->responseService = $responseService;
     }
 
-    public function createCategory(string $name, string $description, ?int $subCategoryId = null)
+    public function createCategory(string $name, string $description)
     {
         $insertStruct = [
             'name' => $name,
             'description' => $description
         ];
-
-        if(!is_null($subCategoryId)){
-            $insertStruct['category_id'] = $subCategoryId;
-        }
 
         Category::create($insertStruct);
 

@@ -15,11 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->foreignId('category_id')->nullable()->default(null);
-            $table->foreign('category_id')
-                ->references('id')
-                ->on('categories')
-                ->onDelete('SET NULL');
             $table->timestamps();
         });
     }
