@@ -9,6 +9,10 @@
 namespace App\Services;
 
 
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\CategoryResourceCollection;
+use App\Http\Resources\ResourceCollection;
+use App\Http\Resources\ResponseResourceCollection;
 use App\Models\Category;
 
 class CategoryService
@@ -20,7 +24,25 @@ class CategoryService
         $this->responseService = $responseService;
     }
 
-    public function createCategory(string $name, string $description)
+    public function getAll()
+    {
+        $categories = Category::all();
+        //return $this->responseService->successResponseWithResourceCollection( 'All categories', $categories);
+        return $this->responseService->successResponseWithResourceCollection(
+            'All categories', CategoryResource::class, $categories
+        );
+    }
+
+    public function show(int $id)
+    {
+        $category = Category::where('id', $id)->get();
+        //$category = Category::find($id);
+        return $this->responseService->successResponseWithResourceCollection(
+            'Category', CategoryResource::class, $category
+        );
+    }
+
+    public function create(string $name, string $description)
     {
         $insertStruct = [
             'name' => $name,
@@ -29,6 +51,26 @@ class CategoryService
 
         Category::create($insertStruct);
 
-        return $this->responseService->successResponse('Category created');
+        return $this->responseService->successResponse('Category updated');
+    }
+
+    public function update(int $id, string $name, string $description)
+    {
+        Category::where('id', $id)->update([
+            'name' => $name,
+            'description' => $description
+        ]);
+
+        return $this->responseService->successResponse('Category updated');
+    }
+
+    public function delete($id)
+    {
+        $result = Category::where('id', $id)->delete();
+        if($result) {
+            return $this->responseService->successResponse('Category deleted');
+        } else {
+            return $this->responseService->errorResponse('Not found category to delete', 409);
+        }
     }
 }

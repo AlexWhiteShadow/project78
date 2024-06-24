@@ -8,7 +8,7 @@ use App\Services\ResponseService;
 
 class CreateCategoryRequest extends FormRequest
 {
-private ResponseService $responseService;
+    private ResponseService $responseService;
 
     public function __construct(ResponseService $responseService)
     {

@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ResponseResourceCollection;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Database\Eloquent\Collection;
 
 class ResponseService
 {
@@ -57,5 +60,14 @@ class ResponseService
                 'message' => $message,
             ], $code)
         );
+    }
+
+    public function successResponseWithResourceCollection(
+        string $message, string $resourceClassName, $collectionToResponse
+    )
+    {
+        $resourceInstance = new $resourceClassName($collectionToResponse);
+        $resourceCollectionClassName = $resourceClassName . 'Collection';
+        return new $resourceCollectionClassName(true, $message, $resourceInstance);
     }
 }
