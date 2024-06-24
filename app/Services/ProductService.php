@@ -61,6 +61,40 @@ class ProductService
         return $this->responseService->successResponse('Product created');
     }
 
+    public function update(
+        int $id,
+        string $name,
+        string $description,
+        string $price,
+        int $categoryId,
+        ?UploadedFile $mainImage
+    )
+    {
+        $productModel = Product::find($id);
+
+        if(!is_null($productModel)) {
+
+            if (!is_null($mainImage)) {
+
+                Storage::disk('public')->delete('images/' . $productModel->main_image);
+                $mainImageFileName = $this->storeFileFromUploadedFileInstance($mainImage);
+                $productModel->main_image = $mainImageFileName;
+
+                Storage::disk('public')->path('/images/' . $mainImageFileName);
+
+            }
+            $productModel->name = $name;
+            $productModel->description = $description;
+            $productModel->price = $price;
+            $productModel->category_id = $categoryId;
+            $productModel->update();
+
+            return $this->responseService->successResponse('Product updated');
+        } else {
+            return $this->responseService->errorResponse('Product not found and not updated', 404);
+        }
+    }
+
     public function delete($id)
     {
         $product = Product::find($id);
@@ -74,7 +108,7 @@ class ProductService
 
             return $this->responseService->successResponse('Product deleted');
         } else {
-            return $this->responseService->errorResponse('Product not found and not deleted', 409);
+            return $this->responseService->errorResponse('Product not found and not deleted', 404);
         }
     }
 
