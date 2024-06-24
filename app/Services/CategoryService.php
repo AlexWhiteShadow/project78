@@ -10,9 +10,6 @@ namespace App\Services;
 
 
 use App\Http\Resources\CategoryResource;
-use App\Http\Resources\CategoryResourceCollection;
-use App\Http\Resources\ResourceCollection;
-use App\Http\Resources\ResponseResourceCollection;
 use App\Models\Category;
 
 class CategoryService
@@ -27,7 +24,6 @@ class CategoryService
     public function getAll()
     {
         $categories = Category::all();
-        //return $this->responseService->successResponseWithResourceCollection( 'All categories', $categories);
         return $this->responseService->successResponseWithResourceCollection(
             'All categories', CategoryResource::class, $categories
         );
@@ -36,7 +32,6 @@ class CategoryService
     public function show(int $id)
     {
         $category = Category::where('id', $id)->get();
-        //$category = Category::find($id);
         return $this->responseService->successResponseWithResourceCollection(
             'Category', CategoryResource::class, $category
         );
