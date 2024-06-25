@@ -1,5 +1,6 @@
 ### How to run (with Docker):
 
+* Clone the repo [https://github.com/AlexWhiteShadow/project78](https://github.com/AlexWhiteShadow/project78)
 * Run ```docker-compose up -d```
 * Go inside the container ```docker exec -it project78_php-apache_1 bash```
 * Run ```composer install```
