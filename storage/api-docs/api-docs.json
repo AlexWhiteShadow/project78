@@ -37,6 +37,7 @@
                       }
                     }
                 },
+                "security": [],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -109,6 +110,7 @@
                         }
                     }
                 },
+                "security": [],
                 "responses": {
                     "200": {
                         "description": "OK",
