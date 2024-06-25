@@ -3,41 +3,17 @@
 return [
     'default' => 'default',
     'documentations' => [
-
-
-        'internal' => [
-            'api' => [
-                'title' => 'Internal Viber API',
-            ],
-            'routes' => [
-                /*
-                 * Route for accessing api documentation interface
-                */
-                'api' => 'api/internal-documentation',
-                'docs' => storage_path('api-docs/api-internal-docs'),
-                'oauth2_callback' => 'api/internal/oauth2-callback',
-            ],
-            'paths' => [
-                'use_absolute_path' => env('L5_SWAGGER_USE_ABSOLUTE_PATH', true),
-                'docs_json' => 'api-internal-docs.json',
-                'docs_yaml' => 'api-internal-docs.yaml',
-                'format_to_use_for_docs' => env('L5_FORMAT_TO_USE_FOR_DOCS', 'json'),
-            ],
-            'constants' => [
-                'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST'),
-            ],
-        ],
         'external' => [
             'api' => [
-                'title' => 'Viber API',
+                'title' => 'Test API',
             ],
 
             'routes' => [
                 /*
                  * Route for accessing api documentation interface
                 */
-                'api' => 'api/external-documentation',
-                'docs' => storage_path('api-docs/api-external-docs'),
+                'api' => 'api/test-documentation',
+                'docs' => storage_path('api-docs/api-docs'),
                 'oauth2_callback' => 'api/external/oauth2-callback',
             ],
             'paths' => [
