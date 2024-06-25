@@ -3,9 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use App\Services\ResponseService;
 
 class CreateProductRequest extends FormRequest
 {
+    private ResponseService $responseService;
+
+    public function __construct(ResponseService $responseService)
+    {
+        $this->responseService = $responseService;
+    }
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,7 +30,17 @@ class CreateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string',
+            'description' => 'required|string',
+            'price' => 'required|numeric|gt:0',
+            'category_id' => 'required|string',
+            'main_image' => 'sometimes|file|mimes:jpeg,png,gif|max:10240',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $message = $validator->errors()->first();
+        $this->responseService->errorResponseWithException($message);
     }
 }

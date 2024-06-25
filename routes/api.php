@@ -16,7 +16,7 @@ Route::get('products', [ProductController::class, 'getAll']);
 Route::get('products/{id}', [ProductController::class, 'show']);
 Route::post('products', [ProductController::class, 'create']);
 Route::delete('products/{id}', [ProductController::class, 'delete']);
-Route::patch('products/{id}', [ProductController::class, 'update']);
+Route::post('products/{id}', [ProductController::class, 'update']);
 
 Route::get('/user', function (Request $request) {
     return $request->user();

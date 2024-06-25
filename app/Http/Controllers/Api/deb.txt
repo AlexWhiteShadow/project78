@@ -1,0 +1,24 @@
+Array
+(
+    [0] => 1
+    [1] => Array
+        (
+            [name] => namebnasme
+            [description] => descr_2
+            [price] => 3.55
+            [category_id] => 4
+            [main_image] => Illuminate\Http\UploadedFile Object
+                (
+                    [test:Symfony\Component\HttpFoundation\File\UploadedFile:private] => 
+                    [originalName:Symfony\Component\HttpFoundation\File\UploadedFile:private] => Screenshot from 2024-05-09 15-18-59.png
+                    [mimeType:Symfony\Component\HttpFoundation\File\UploadedFile:private] => image/png
+                    [error:Symfony\Component\HttpFoundation\File\UploadedFile:private] => 0
+                    [originalPath:Symfony\Component\HttpFoundation\File\UploadedFile:private] => Screenshot from 2024-05-09 15-18-59.png
+                    [hashName:protected] => 
+                    [pathName:SplFileInfo:private] => /tmp/phpBC35TL
+                    [fileName:SplFileInfo:private] => phpBC35TL
+                )
+
+        )
+
+)

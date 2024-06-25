@@ -1,0 +1,632 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Test API",
+        "version": "1.0.0"
+    },
+    "tags": [
+        {
+            "name": "Product",
+            "description": "Product description"
+        }
+    ],
+    "paths": {
+        "/api/products": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all products.",
+                "description": "Gets all products.",
+                "operationId": "515c07631f88ee1a20c5c6cd303b920f",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "All products"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                              "$ref": "#/components/schemas/ProductItem"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": {
+                                    "status": "Error",
+                                    "description": "Something went wrong"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create product.",
+                "description": "Creates new product.",
+                "operationId": "515c07631f88ee1a20c2c6cd303b920f",
+                "requestBody": {
+                    "description": "Input data format",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "name one"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description one"
+                                    },
+                                    "price": {
+                                        "type": "string",
+                                        "example": "5.55"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "4"
+                                    },
+                                    "main_image": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "The file of main image to be uploaded"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductErrorValidation"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{product_id_to_show}": {
+            "get": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Show product.",
+                "description": "Shows product by product_id_to_show identifier.",
+                "operationId": "515c07631f88ee1a20c5c6cd303b520f",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/ProductItem"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{product_id_to_update}": {
+            "post": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update the product.",
+                "description": "Update the product.",
+                "operationId": "cc769092791dc87ca7c700a3c74c3cb1",
+                "parameters": [
+                    {
+                        "name": "product_id_to_update",
+                        "in": "path",
+                        "description": "Update product",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Input data format",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "name one"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "description one"
+                                    },
+                                    "price": {
+                                        "type": "string",
+                                        "example": "5.55"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "4"
+                                    },
+                                    "main_image": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "The file of main image to be uploaded"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductUpdateSuccessResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductErrorValidation"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProductNotFound"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/products/{product_id_to_delete}": {
+            "delete": {
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete product.",
+                "description": "Deletes product by product_id_to_delete identifier",
+                "operationId": "515c07631f88ee1a20c5c6cd303b926f",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "Success": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product not found and not deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalServerError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "ProductItem": {
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "name_one"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "description_one"
+                    },
+                    "price": {
+                        "type": "string",
+                        "example": "3.55"
+                    },
+                    "main_image": {
+                        "type": "string",
+                        "example": "1719305302_image1.png"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "example": "2024-06-25 07:36:56"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "example": "2024-06-25 08:48:22"
+                    }
+                },
+                "type": "object"
+            },
+            "NumberCreateSuccessResponse": {
+                "properties": {
+                    "status": {
+                        "description": "Status of the request",
+                        "type": "string",
+                        "example": "Success"
+                    },
+                    "description": {
+                        "description": "Detailed message",
+                        "type": "string",
+                        "example": "Number successfully created"
+                    },
+                    "data": {
+                        "description": "Number data",
+                        "properties": {
+                            "number": {
+                                "description": "Number's phone number",
+                                "type": "string",
+                                "example": "380999999999"
+                            },
+                            "api_key": {
+                                "description": "Number's API Key",
+                                "type": "string",
+                                "example": "s7676nhjd7d89"
+                            },
+                            "status": {
+                                "description": "Number status",
+                                "type": "string",
+                                "example": "Requires activation"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object"
+            },
+            "ProductUpdateSuccessResponse": {
+                "properties": {
+                    "Success": {
+                        "description": "Status of the request",
+                        "type": "boolean",
+                        "example": "true"
+                    },
+                    "message": {
+                        "description": "Success message",
+                        "type": "string",
+                        "example": "Product updated"
+                    }
+                },
+                "type": "object"
+            },
+            "CreateNumberRequest": {
+                "properties": {
+                    "number": {
+                        "description": "Number's phone number",
+                        "type": "string",
+                        "example": "380999999999"
+                    },
+                    "account_key": {
+                        "description": "Number's account key",
+                        "type": "string",
+                        "example": "550e8400-e29b-41d4-a716-446655440000"
+                    }
+                },
+                "type": "object"
+            },
+            "NumberCreateErrorValidation": {
+                "properties": {
+                    "status": {
+                        "description": "Error status",
+                        "type": "string"
+                    },
+                    "message": {
+                        "properties": {
+                            "number": {
+                                "description": "Validation messages for the number",
+                                "type": "string"
+                            },
+                            "api_key": {
+                                "description": "Validation messages for the API key",
+                                "type": "string"
+                            },
+                            "account_key": {
+                                "description": "Validation messages for the account key",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    }
+                },
+                "type": "object",
+                "example": {
+                    "status": "Error",
+                    "description": [
+                        "The number already exists | Invalid number format",
+                        "Invalid api_key format",
+                        "Invalid account_key format",
+                        "Invalid data format"
+                    ]
+                }
+            },
+            "UpdateNumberRequestSchema": {
+                "title": "Update Number Request",
+                "description": "Request body parameters for updating the product.",
+                "properties": {
+                    "name": {
+                        "description": "Product name",
+                        "type": "string",
+                        "example": "Name one"
+                    },
+                    "description": {
+                        "description": "Product description",
+                        "type": "string",
+                        "example": "Product description one"
+                    },
+                    "price": {
+                        "description": "Product price",
+                        "type": "string",
+                        "example": "3.44"
+                    },
+                    "category_id": {
+                        "description": "Category id to attach",
+                        "type": "integer",
+                        "example": 4
+                    }
+                },
+                "type": "object"
+            },
+            "ProductErrorValidation": {
+                "properties": {
+                    "Success": {
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "The name field is required."
+                    }
+                },
+                "type": "object"
+            },
+            "ProductNotFound": {
+                "properties": {
+                    "Success": {
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Product not found and not updated"
+                    }
+                }
+            },
+            "InternalServerError": {
+                "properties": {
+                    "Success": {
+                        "type": "boolean",
+                        "example": "false"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Some thing went wrong"
+                    }
+                }
+            },
+            "ForbiddenSchema": {
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "Error"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Number requires activation"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        },
+        "responses": {
+            "NotFound": {
+                "description": "Not Found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/NotFound"
+                        }
+                    }
+                }
+            },
+            "InternalServerError": {
+                "description": "Internal Server Error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/InternalServerError"
+                        }
+                    }
+                }
+            },
+            "UnauthorizedError": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "status": {
+                                    "type": "string",
+                                    "example": "Error"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "example": "Invalid number or API key"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "ForbiddenResponse": {
+                "description": "Forbidden",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/ForbiddenSchema"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "BearerAuth": []
+        }
+    ]
+}
