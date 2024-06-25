@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('description');
             $table->string('price');
             $table->string('main_image');
-            $table->json('additional_images')->nullable()->default(null);
             $table->foreignId('category_id')->nullable();
             $table->foreign('category_id')
                 ->references('id')
