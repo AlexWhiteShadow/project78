@@ -48,15 +48,20 @@ class ProductService
     {
         $mainImageFileName = $this->storeFileFromUploadedFileInstance($mainImage);
 
-        $insertStruct = [
-            'name' => $name,
-            'description' => $description,
-            'price' => $price,
-            'main_image' => $mainImageFileName, //asset('/storage/images/' . $mainImageFileName),
-            'category_id' => $categoryId
-        ];
+        try{
+            $insertStruct = [
+                'name' => $name,
+                'description' => $description,
+                'price' => $price,
+                'main_image' => $mainImageFileName,
+                'category_id' => $categoryId
+            ];
 
-        Product::create($insertStruct);
+            Product::create($insertStruct);
+        } catch (\Exception $exception){
+            Storage::disk('public')->delete('images/' . $mainImageFileName);
+            return $this->responseService->errorResponse('Something went wrong', 500);
+        }
 
         return $this->responseService->successResponse('Product created');
     }
@@ -76,13 +81,29 @@ class ProductService
 
             if (!is_null($mainImage)) {
 
-                Storage::disk('public')->delete('images/' . $productModel->main_image);
+                $previousMainImageFileName = $productModel->main_image;
+
                 $mainImageFileName = $this->storeFileFromUploadedFileInstance($mainImage);
+
+                try{
+
                 $productModel->main_image = $mainImageFileName;
+                $productModel->name = $name;
+                $productModel->description = $description;
+                $productModel->price = $price;
+                $productModel->category_id = $categoryId;
+                $productModel->update();
 
-                Storage::disk('public')->path('/images/' . $mainImageFileName);
+                Storage::disk('public')->delete('images/' . $previousMainImageFileName);
 
+                } catch (\Exception $exception) {
+
+                    Storage::disk('public')->delete('images/' . $mainImageFileName);
+                    return $this->responseService->errorResponse('Something went wrong', 500);
+                }
+                return $this->responseService->successResponse('Product updated');
             }
+
             $productModel->name = $name;
             $productModel->description = $description;
             $productModel->price = $price;
@@ -101,9 +122,7 @@ class ProductService
 
         if(!is_null($product)) {
 
-            if (Storage::disk('public')->exists('images/' . $product->main_iamge)) {
-                Storage::disk('public')->delete('images/' . $product->main_iamge);
-            }
+            Storage::disk('public')->delete('images/' . $product->main_image);
             $product->delete();
 
             return $this->responseService->successResponse('Product deleted');

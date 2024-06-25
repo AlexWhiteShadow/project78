@@ -255,7 +255,7 @@
                 }
             }
         },
-        "/api/products/": {
+        "/api/products/create": {
             "post": {
                 "tags": [
                     "Product"
@@ -738,7 +738,7 @@
                 }
             }
         },
-        "/api/categories/": {
+        "/api/categories/create": {
             "post": {
                 "tags": [
                     "Category"
@@ -822,13 +822,13 @@
             }
         },
         "/api/categories/{category_id_to_update}": {
-            "post": {
+            "put": {
                 "tags": [
                     "Category"
                 ],
                 "summary": "Update the category.",
                 "description": "Update the category.",
-                "operationId": "cc769092791dc87ca7c700a3c74c3cb1",
+                "operationId": "cc769092791dc87ca7c700a3c74c3ca2",
                 "parameters": [
                     {
                         "name": "category_id_to_update",
@@ -844,9 +844,8 @@
                     "description": "Input data format",
                     "required": true,
                     "content": {
-                        "multipart/form-data": {
+                        "application/json": {
                             "schema": {
-                                "type": "object",
                                 "properties": {
                                     "name": {
                                         "type": "string",
@@ -856,7 +855,8 @@
                                         "type": "string",
                                         "example": "description one"
                                     }
-                                }
+                                },
+                                "type": "object"
                             }
                         }
                     }
@@ -1012,6 +1012,19 @@
                     "main_image": {
                         "type": "string",
                         "example": "1719305302_image1.png"
+                    },
+                    "category":{
+                        "properties": {
+                            "id": {
+                                "type": "integer",
+                                "example": "1"
+                            },
+                            "name": {
+                                "type": "string",
+                                "example": "category name"
+                            }
+                        },
+                        "type": "object"
                     },
                     "created_at": {
                         "type": "string",

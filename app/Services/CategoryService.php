@@ -46,7 +46,7 @@ class CategoryService
 
         Category::create($insertStruct);
 
-        return $this->responseService->successResponse('Category updated');
+        return $this->responseService->successResponse('Category created');
     }
 
     public function update(int $id, string $name, string $description)
