@@ -6,7 +6,7 @@
 * Run ```composer install```
 * Go inside the container ```docker exec -it project78_php-apache_1 bash```
 * Run ```php artisan migrate```
-* Run ```chmod 777 -R storage```
+* Run ```chmod -R 777 storage```
 * Run ```php artisan optimize```
 * Open [http://localhost/api/test-documentation](http://localhost/api/test-documentation)
 * To exit, press ctrl+D and run ```docker-compose down```
